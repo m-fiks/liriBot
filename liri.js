@@ -16,6 +16,8 @@ const spotify = new Spotify(keys.spotify);
 //command
 let doTheThing = process.argv[2];
 
+let input = process.argv[3];
+
 //params for twitter
 const params = {
     q: 'meowmeow_maddy',
@@ -68,18 +70,20 @@ function songDisplay (err, data){
           let songName =musicArray[i].name;
           let previewLink = musicArray[i].preview_url;
           let album = musicArray[i].album.name;
-          console.log(`${songName} by ${artist} on album: ${album}. Preview link: ${previewLink}`); 
-      }
+          console.log(`${songName} by ${artist} on album: ${album}.`);
+          if (previewLink !== null){
+            console.log(`Preview link: ${previewLink}`)
+          };
+      };
 };
 
 function songSearch () {
   //song for spotify format '<x>'
-  let songInput = process.argv[3];
   let songName;
-  //console.log(songInput);
-  if (songInput !== undefined){
+  //console.log(input);
+  if (input !== undefined){
        //remove the <>
-      songName = songInput.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+      songName = input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
       
   } else {
       songName = 'Barbie Girl'
@@ -90,8 +94,19 @@ function songSearch () {
 //omdb business
 function movieSearch() {
     let key = keys.OMDB.api_key;
-    let URL = 'https://www.omdbapi.com/?t=Superbad&y=&plot=short&apikey=' + key;
+    let URL = 'https://www.omdbapi.com/?t=Mr+Nobody&plot=short&tomatoes=true&apikey=' + key;
     request(URL, function (err, res, body){
-        console.log(res);
+        //console.log(JSON.parse(body))
+        let title = JSON.parse(body).Title;
+        let year = JSON.parse(body).Year;
+        let rating = JSON.parse(body).imdbRating;
+        let rottenTom = JSON.parse(body).tomatoRating;
+        let country = JSON.parse(body).Country;
+        let lang = JSON.parse(body).Language;
+        let plot = JSON.parse(body).Plot;
+        let actors = JSON.parse(body).Actors;
+        console.log(`Title: ${title}, Made: ${year}, IMDB rating: ${rating}, Rotten Tomatoes rating: ${rottenTom}`);
+        console.log(`Made in: ${country}, Language: ${lang}`)
+        console.log(`Plot: ${plot} Actors: ${actors}`)
     })
 };
