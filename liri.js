@@ -56,6 +56,16 @@ function searchTweets(err, tweets, response){
         let created = tweeteys[i].created_at
         let text = tweeteys[i].text;
         console.log(`${created} : ${text}`);
+
+        //append to log.txt
+        fs.appendFile('log.txt', '\r\n' + created + text, (err,data) => {
+            if (err){
+                console.log(err);
+            }
+            else{
+                console.log(`\r\n Successfully appended to log.txt!`)
+            }
+        });
     }
 };
 
@@ -75,7 +85,16 @@ function songDisplay (err, data){
           if (previewLink !== null){
             console.log(`Preview link: ${previewLink}`)
           };
-      };
+
+        //append to log.txt
+        fs.appendFile('log.txt','\r\n' + songName + artist + album + previewLink, (err,data) => {
+            if (err){
+                console.log(err);
+            } else {
+                console.log(`\r\n Successfully appended to log.txt!`)
+            };
+        });          
+    };
 };
 
 function songSearch () {
@@ -117,7 +136,16 @@ function movieSearch() {
             console.log(`Title: ${title}, Made: ${year}, IMDB rating: ${rating}, Rotten Tomatoes rating: ${rottenTom}`);
             console.log(`Made in: ${country}, Language: ${lang}`)
             console.log(`Plot: ${plot} Actors: ${actors}`)
-            }
+
+        //append to log.txt
+        fs.appendFile('log.txt','\r\n' + title + ' ' + year + ' ' + rating, (err,data) => {
+                if (err){
+                    console.log(err);
+                } else{
+                    console.log(`\r\n Successfully appended to log.txt!`)
+                };
+            });
+        }
         else{
             console.log(`Something went wrong! Please try again, or try another movie!`);
         };     
