@@ -3,6 +3,7 @@ require('dotenv').config();
 //require keys.js file (contains keys taken from .env file)
 const keys = require('./keys.js');
 
+const fs = require('fs');
 const request = require('request');
 //console.log(keys.spotify)
 //twitter and spotify libraries
@@ -40,7 +41,7 @@ switch (doTheThing){
     break;
 
     case 'do-what-it-says':
-    console.log('ok');
+    backstreet();
     break;
 
     default:
@@ -88,21 +89,22 @@ function songSearch () {
   } else {
       songName = 'Barbie Girl'
   };
-    spotify.search({ type: 'track', query: songName, limit:5}, songDisplay);
+    spotify.search({ type: 'track', query: songName, limit:3}, songDisplay);
 };
 
 //omdb business
 function movieSearch() {
-    //default to Mr.Nobody
     let key = keys.OMDB.api_key;
     let movieTitle;
+    //default to Mr.Nobody if no movie title entered
     if (input !== undefined){
         movieTitle = songName = input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     } else{
         movieTitle = 'Mr+Nobody';
-    }
+    };
     let URL = 'https://www.omdbapi.com/?t=' + movieTitle + '&plot=short&apikey=' + key;
-    request(URL, function (err, res, body){
+    
+    request(URL, (err, res, body) => {
         if (!err){
             let title = JSON.parse(body).Title;
             let year = JSON.parse(body).Year;
@@ -118,8 +120,23 @@ function movieSearch() {
             }
         else{
             console.log(`Something went wrong! Please try again, or try another movie!`);
-        }
-
-     
+        };     
     });
 };
+
+//do what it say business
+function backstreet () {
+    fs.readFile('random.txt', 'utf8', (err, data) => {
+        if (err){
+            console.log(err);
+        }
+        else {
+            //console.log(typeof(data));
+            //beginning of string as command
+            doTheThing = data.slice(0,[data.indexOf(',')]);
+            //second part of string as the song to search
+            input = data.slice((data.indexOf('"')))
+            songSearch();
+        };
+    })
+}
