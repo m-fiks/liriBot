@@ -51,22 +51,23 @@ switch (doTheThing){
 //twitter callback function to include in client.get
 function searchTweets(err, tweets, response){
     const tweeteys = tweets.statuses;
+    let created='';
+    let text= '';
     for (let i =0; i < tweeteys.length; i++){
         //variables for tweet time created and text of tweet
-        let created = tweeteys[i].created_at
-        let text = tweeteys[i].text;
+        created = tweeteys[i].created_at
+        text = tweeteys[i].text;
         console.log(`${created} : ${text}`);
-
-        //append to log.txt
-        fs.appendFile('log.txt', '\r\n' + created + text, (err,data) => {
-            if (err){
-                console.log(err);
-            }
-            else{
-                console.log(`\r\n Successfully appended to log.txt!`)
-            }
-        });
-    }
+    };
+    //append to log.txt
+    fs.appendFile('log.txt', '\r\n' + created + text, (err,data) => {
+        if (err){
+            console.log(err);
+        }
+        else{
+            console.log(`\r\n Successfully appended to log.txt!`)
+        }
+    });
 };
 
 //spotify business
@@ -74,27 +75,30 @@ function songDisplay (err, data){
     if (err) {
         return console.log(err);
       }
-      let musicArray = data.tracks.items;
+    let musicArray = data.tracks.items;
+    let artst ='';
+    let songName = '';
+    let previewLink ='';
+    let album ='';
       //console.log(musicArray);
       for (let i=0; i<musicArray.length; i++){
-          let artist = musicArray[i].album.artists[0].name;
-          let songName =musicArray[i].name;
-          let previewLink = musicArray[i].preview_url;
-          let album = musicArray[i].album.name;
+          artist = musicArray[i].album.artists[0].name;
+          songName =musicArray[i].name;
+          previewLink = musicArray[i].preview_url;
+          album = musicArray[i].album.name;
           console.log(`${songName} by ${artist} on album: ${album}.`);
           if (previewLink !== null){
             console.log(`Preview link: ${previewLink}`)
           };
-
-        //append to log.txt
-        fs.appendFile('log.txt','\r\n' + songName + artist + album + previewLink, (err,data) => {
-            if (err){
-                console.log(err);
-            } else {
-                console.log(`\r\n Successfully appended to log.txt!`)
-            };
-        });          
-    };
+        };
+    //append to log.txt
+    fs.appendFile('log.txt','\r\n' + songName + ' '+ artist + ' ' + ' ' + album + ' ' + previewLink, (err,data) => {
+        if (err){
+            console.log(err);
+        } else {
+            console.log(`\r\n Successfully appended to log.txt!`)
+        };
+    });          
 };
 
 function songSearch () {
