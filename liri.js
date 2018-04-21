@@ -93,20 +93,33 @@ function songSearch () {
 
 //omdb business
 function movieSearch() {
+    //default to Mr.Nobody
     let key = keys.OMDB.api_key;
-    let URL = 'https://www.omdbapi.com/?t=Mr+Nobody&plot=short&tomatoes=true&apikey=' + key;
+    let movieTitle;
+    if (input !== undefined){
+        movieTitle = songName = input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    } else{
+        movieTitle = 'Mr+Nobody';
+    }
+    let URL = 'https://www.omdbapi.com/?t=' + movieTitle + '&plot=short&apikey=' + key;
     request(URL, function (err, res, body){
-        //console.log(JSON.parse(body))
-        let title = JSON.parse(body).Title;
-        let year = JSON.parse(body).Year;
-        let rating = JSON.parse(body).imdbRating;
-        let rottenTom = JSON.parse(body).tomatoRating;
-        let country = JSON.parse(body).Country;
-        let lang = JSON.parse(body).Language;
-        let plot = JSON.parse(body).Plot;
-        let actors = JSON.parse(body).Actors;
-        console.log(`Title: ${title}, Made: ${year}, IMDB rating: ${rating}, Rotten Tomatoes rating: ${rottenTom}`);
-        console.log(`Made in: ${country}, Language: ${lang}`)
-        console.log(`Plot: ${plot} Actors: ${actors}`)
-    })
+        if (!err){
+            let title = JSON.parse(body).Title;
+            let year = JSON.parse(body).Year;
+            let rating = JSON.parse(body).imdbRating;
+            let rottenTom = JSON.parse(body).Ratings[1].Value;
+            let country = JSON.parse(body).Country;
+            let lang = JSON.parse(body).Language;
+            let plot = JSON.parse(body).Plot;
+            let actors = JSON.parse(body).Actors;
+            console.log(`Title: ${title}, Made: ${year}, IMDB rating: ${rating}, Rotten Tomatoes rating: ${rottenTom}`);
+            console.log(`Made in: ${country}, Language: ${lang}`)
+            console.log(`Plot: ${plot} Actors: ${actors}`)
+            }
+        else{
+            console.log(`Something went wrong! Please try again, or try another movie!`);
+        }
+
+     
+    });
 };
