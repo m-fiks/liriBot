@@ -1,6 +1,6 @@
 # liriBot
 
-** liriBot is a project created with node.js. It is meant to resemeble SIRI, but takes in commands through language instead of speech. It is a command line app that returns data based on four commands **
+**liriBot is a project created with node.js. It is meant to resemeble SIRI, but takes in commands through language instead of speech. It is a command line app that returns data based on four commands**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -8,7 +8,7 @@
 
 - [Tech Used](#tech-used)
 - [Installation](#installation)
--[Commands](#Commands)
+- [Commands](#Commands)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -42,4 +42,4 @@
 - takes the text from 'random.txt' and run the `'spotify-this-song'` command for 'I Want it that Way'
 
 ## License
-[MIT License](https://github.com/m-fiks/liriBot/LICENSE)
+[MIT License](https://github.com/m-fiks/liriBot/blob/master/LICENSE)
