@@ -25,6 +25,7 @@
 ## Installation
 
 * Clone repo
+* Obtain API keys for Twitter, Spotify, and OMDB
 * Create .env file that houses API keys
 * Run `'npm install'` in terminal
 * Run `'node liri.js'` followed by one of the commands listed below
