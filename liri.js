@@ -58,16 +58,13 @@ function searchTweets(err, tweets, response){
         created = tweeteys[i].created_at
         text = tweeteys[i].text;
         console.log(`${created} : ${text}`);
-    };
     //append to log.txt
     fs.appendFile('log.txt', '\r\n' + created + text, (err,data) => {
         if (err){
             console.log(err);
-        }
-        else{
-            console.log(`\r\n Successfully appended to log.txt!`)
-        }
-    });
+            }
+        });
+    };
 };
 
 //spotify business
