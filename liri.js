@@ -105,11 +105,12 @@ function songSearch () {
   if (input !== undefined){
        //remove the <>
       songName = input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+
       
   } else {
-      songName = 'Barbie Girl'
-  };
-    spotify.search({ type: 'track', query: songName, limit:3}, songDisplay);
+    songName = 'The Sign Ace of base'
+    };
+  spotify.search({ type: 'track', query: songName, limit:3}, songDisplay);
 };
 
 //omdb business
