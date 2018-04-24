@@ -107,7 +107,7 @@ function songSearch () {
       songName = input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
       
   } else {
-      songName = 'Barbie Girl'
+      songName = 'The Sign Ace of Base'
   };
     spotify.search({ type: 'track', query: songName, limit:3}, songDisplay);
 };
